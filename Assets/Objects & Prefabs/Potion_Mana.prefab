@@ -246,5 +246,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 5834641038286706968}
   rb: {fileID: 9854257592564398}
-  item: {fileID: 11400000, guid: ebfd31c6bdcab614ebde0bad7d3d7a0a, type: 2}
-  isInsideInventory: 0
+  collid: {fileID: 3837860692030711902}
+  animator: {fileID: 0}
+  scriptableItem: {fileID: 11400000, guid: ebfd31c6bdcab614ebde0bad7d3d7a0a, type: 2}
