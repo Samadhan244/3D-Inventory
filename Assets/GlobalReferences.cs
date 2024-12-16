@@ -4,6 +4,8 @@ using UnityEngine.U2D;
 public class GlobalReferences : MonoBehaviour
 {
     public static GlobalReferences Instance { get; private set; }  // Singleton instance
+    public Camera cam;
+    public Transform playerCamera;
     public Inventory inventory;
     public SpriteAtlas spriteAtlas;
     public bool isChestOpen;
