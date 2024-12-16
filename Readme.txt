@@ -1,4 +1,0 @@
-You can move using W/A/S/D/Q/E.
-There is a bug with item positioning in the inventory when movement keys are used.
-Items spawn automatically and can be picked up with a left-click. (For me this wasn't enough time to add 'dragging' and 'dropping into inventory' functions.)
-Also there is no "removing item" logic added yet.
