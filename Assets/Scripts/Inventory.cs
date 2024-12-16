@@ -10,12 +10,15 @@ public class Inventory : MonoBehaviour
     UnityEvent OnItemFolded, OnItemRetrieved; // Events for folding and retrieving
     [SerializeField] Text itemCountText, weightCountText;
     [SerializeField] Transform[] slots;  // Items are saved in these empty slots
+    [SerializeField] Image[] icons;  // These are icons which we will see when hovering over inventory
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip chestOpen, chestClose, itemPickup, itemDrop;
     bool isOnCd;
     [SerializeField] float weightCount;
     static readonly int IsOpenHash = Animator.StringToHash("IsOpen");
+
+    [SerializeField] GameObject tooltip;
 
     void Start()
     {
@@ -137,5 +140,23 @@ public class Inventory : MonoBehaviour
                         child.localPosition = Vector3.zero;  // Reset position (child's position = parent's position)
                         break;
                     }
+    }
+
+    public void ShowUI(bool trueOrFalse)
+    {
+        tooltip.SetActive(trueOrFalse);
+        if (trueOrFalse)
+        {
+            foreach (Image x in icons) x.gameObject.SetActive(false);
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].childCount > 0)
+                {
+                    icons[i].gameObject.SetActive(true);
+                    icons[i].sprite = global.spriteAtlas.GetSprite(slots[i].GetChild(0).name.Replace("(Clone)", "").Trim());
+                }
+                else break;
+            }
+        }
     }
 }

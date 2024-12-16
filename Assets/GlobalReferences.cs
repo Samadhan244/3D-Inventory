@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class GlobalReferences : MonoBehaviour
 {
     public static GlobalReferences Instance { get; private set; }  // Singleton instance
     public Inventory inventory;
+    public SpriteAtlas spriteAtlas;
     public bool isChestOpen;
     public int usedSlots, totalSlots = 20;
     public int droppedItemsCount, maxItemsOnSceneToDrop = 10;

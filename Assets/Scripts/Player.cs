@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     {
         MoveAndRotation();
         DropItemsByMouseUp();
+        DisplayInventoryByMouseDown();
     }
 
     public void Footsteps()  // This method is called from animation which plays random footstep sound
@@ -35,10 +36,30 @@ public class Player : MonoBehaviour
 
     void DropItemsByMouseUp()
     {
-        if (Input.GetMouseButtonUp(0))  // Mouse2 (Right Mouse Button)
+        if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.CompareTag("Item"))  hit.collider.GetComponent<Item>()?.Drop();
+        }
+    }
+
+    bool isUiDisplayed;
+    void DisplayInventoryByMouseDown()
+    {
+        if (Input.GetMouseButtonDown(0) && !isUiDisplayed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.CompareTag("Chest"))
+            {
+                isUiDisplayed = true;
+                global.inventory.ShowUI(true);
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0) && isUiDisplayed)
+        {
+            isUiDisplayed = false;
+            global.inventory.ShowUI(false);
         }
     }
 }

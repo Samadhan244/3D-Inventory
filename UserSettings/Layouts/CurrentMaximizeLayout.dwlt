@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 1441
+  controlID: 7198
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 1442
+  controlID: 7199
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 1443
+  controlID: 7200
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -240,9 +240,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: cc5a0000
-      m_LastClickedID: 23244
-      m_ExpandedIDs: 30fbfffff4ffffff965a0000
+      m_SelectedIDs: 965a0000
+      m_LastClickedID: 23190
+      m_ExpandedIDs: 30fbffff965a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -295,7 +295,7 @@ MonoBehaviour:
   - {fileID: 10}
   - {fileID: 11}
   m_Selected: 1
-  m_LastSelected: 2
+  m_LastSelected: 3
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -624,7 +624,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: UnityEditor.SceneViewCameraOverlay
-      index: 8
+      index: 9
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -754,7 +754,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 24, y: 0}
       snapCorner: 0
       id: Scene View/Path
-      index: 11
+      index: 8
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -871,7 +871,7 @@ MonoBehaviour:
     x: 271
     y: 73
     width: 1118
-    height: 613
+    height: 612
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
     x: 271
     y: 73
     width: 1118
-    height: 613
+    height: 612
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1137,7 +1137,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sounds
+    - Assets/Icons
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1145,16 +1145,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 78
   m_LastFolders:
-  - Assets/Sounds
+  - Assets/Icons
   m_LastFoldersGridSize: 78
   m_LastProjectPath: C:\Users\Nikson\Desktop\3D-Inventory
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: ac5c0000
-    m_LastClickedID: 23724
-    m_ExpandedIDs: 00000000825c0000845c0000865c0000885c00008a5c000000ca9a3bffffff7f
+    m_SelectedIDs: 985c0000
+    m_LastClickedID: 23704
+    m_ExpandedIDs: 00000000845c0000865c0000885c00008a5c00008c5c0000985c000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1182,7 +1182,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000825c0000845c0000865c0000885c00008a5c000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000845c0000865c0000885c00008a5c00008c5c000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1207,9 +1207,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: cc5a0000
-    m_LastClickedInstanceID: 23244
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 965a0000
+    m_LastClickedInstanceID: 23190
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300000a9b000034620000b68f000066850000c485000094850000d28500006e8500009a8300008c85000084850000d0830000b4850000bc850000a4850000ee830000f8830000028400000c8400009c850000da8500003e84000048840000ac85000070fc0000de48010028630000a65b0000000000009cb20000fab90000eab9000058d301004ad301003cd30100c8d00100acd00100bad00100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1308,7 +1308,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 23244
+  m_LastSelectedObjectID: -7510
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52

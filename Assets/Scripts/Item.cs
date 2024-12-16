@@ -24,6 +24,7 @@ public class Item : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (global.isChestOpen) return;  // can't pick up items when checking inside chest
         if (cooldown > 0) return;  // Prevent spamming
         else cooldown = 0.3f;
 
