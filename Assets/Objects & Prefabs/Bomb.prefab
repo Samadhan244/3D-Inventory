@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5400786795853915805}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 7024992075362919074}
   rb: {fileID: 639599094480707658}
   collid: {fileID: 6202959877139487414}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: f2d5629fc7107144dba5f4ae8fde3d0e, type: 2}

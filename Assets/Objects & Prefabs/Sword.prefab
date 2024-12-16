@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8036442143554016995}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 2310044666483560371}
   rb: {fileID: 2706630213496031805}
   collid: {fileID: 7707846003623000992}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: 4724da0ab40158241a25c39f2c6d7b47, type: 2}

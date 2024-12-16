@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    GlobalReferences global => GlobalReferences.Instance;
     [SerializeField] AudioSource audioSource;
     [SerializeField] Rigidbody rb;
     [SerializeField] Collider collid;
     public ScriptableItem scriptableItem;
     bool isInsideInventory;  // When it's inside inventory, the gravity will be disabled
     static bool inventoryIsOnCooldown;
+    static readonly int DropHash = Animator.StringToHash("Drop");
 
     void Update()
     {
@@ -26,24 +28,28 @@ public class Item : MonoBehaviour
         inventoryIsOnCooldown = true;
         this.Wait(0.3f, () => inventoryIsOnCooldown = false);  // This is more perfromance-friendly than constant checking of cooldown += Time.deltatime; in update
 
-        // Take, if not in inventory, or drop if in inventory
-        if (!isInsideInventory) Inventory.Instance.AddItem(this);
-        else Inventory.Instance.RemoveItem(this);
+        if (!isInsideInventory)
+        {
+            global.inventory.AddItem(this);
+            isInsideInventory = true;
+            rb.isKinematic = true;
+            collid.isTrigger = true;
+        }
     }
 
-    public void AddOrRemove(bool add)  // Inventory itself calls for this item's method when needed
+
+    public void Drop()
     {
-        if (add)
+        if (isInsideInventory)  // Removing item
         {
-            isInsideInventory = true;
-            rb.isKinematic = true;  // Freeze rotation and position while inside inventory(animator will itself rotate it)
-            collid.isTrigger = true;  // To not crash with anything inside inventory
-        }
-        else
-        {
-            isInsideInventory = false;
-            rb.isKinematic = false;
-            collid.isTrigger = false;
+            GetComponentInParent<Animator>().Play(DropHash);  // Do the animation first, then remove it
+            this.Wait(0.3f, () =>
+            {
+                global.inventory.RemoveItem(this);
+                isInsideInventory = false;
+                rb.isKinematic = false;
+                collid.isTrigger = false;
+            });
         }
     }
 }

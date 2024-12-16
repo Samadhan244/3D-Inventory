@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2668130773297554951}
   m_Layer: 0
   m_Name: Potion_Health
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 8951488796578680166}
   rb: {fileID: 4374132028240352860}
   collid: {fileID: 2587145365717305127}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: 6e8b77f9fb20961478521e645bb0d640, type: 2}

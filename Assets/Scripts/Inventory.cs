@@ -5,22 +5,15 @@ using UnityEngine.Networking;
 
 public class Inventory : MonoBehaviour
 {
-    public static Inventory Instance { get; private set; }
+    GlobalReferences global => GlobalReferences.Instance;
     [SerializeField] Text itemCountText, weightCountText;
     [SerializeField] Transform[] slots;  // Items are saved in these empty slots
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip chestOpen, chestClose, itemPickup;
-    public bool isOpen, isOnCd;
-    [SerializeField] int currentItems, maxItems = 20;
+    bool isOnCd;
     [SerializeField] float weightCount;
-    static readonly int IsOpenHash = Animator.StringToHash("IsOpen"), DropHash = Animator.StringToHash("Drop");  // Performance-friendly to play animation hashes, instead of string
-
-    void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
+    static readonly int IsOpenHash = Animator.StringToHash("IsOpen");
 
     void Start()
     {
@@ -41,8 +34,8 @@ public class Inventory : MonoBehaviour
         else { isOnCd = true; this.Wait(1f, () => isOnCd = false); }
 
         // Open if closed, close if open
-        isOpen = !isOpen;
-        animator.SetBool(IsOpenHash, isOpen);
+        global.isChestOpen = !global.isChestOpen;
+        animator.SetBool(IsOpenHash, global.isChestOpen);
     }
 
     public void PlaySound(int index)
@@ -65,15 +58,15 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        if (currentItems >= maxItems) { print("Inventory is full"); return; }
+        if (global.usedSlots >= global.totalSlots) { print("Inventory is full"); return; }
 
-        item.AddOrRemove(true);
         StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "add"));
 
         PlaySound(2);
-        currentItems += 1;
+        global.usedSlots += 1;
+        global.droppedItemsCount -= 1;
         weightCount += item.scriptableItem.weight;
-        itemCountText.text = currentItems + " / " + maxItems;
+        itemCountText.text = global.usedSlots + " / " + global.totalSlots;
         weightCountText.text = weightCount.ToString();
 
         foreach (Transform slot in slots)
@@ -89,22 +82,17 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        item.GetComponentInParent<Animator>().Play(DropHash);  // Do the dropping animation in inventory, before actually dropping it
+        StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "remove"));
 
-        this.Wait(0.3f, () =>
-        {
-            item.AddOrRemove(false);
-            StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "remove"));
+        global.usedSlots -= 1;
+        global.droppedItemsCount += 1;
+        weightCount -= item.scriptableItem.weight;
+        itemCountText.text = global.usedSlots + " / " + global.totalSlots;
+        weightCountText.text = weightCount.ToString();
 
-            currentItems -= 1;
-            weightCount -= item.scriptableItem.weight;
-            itemCountText.text = currentItems + " / " + maxItems;
-            weightCountText.text = weightCount.ToString();
-
-            item.transform.SetParent(null, false);  // 'false' ensures the child retains its global transform settings when changing its parent
-            item.transform.position = transform.position + Vector3.up + Vector3.forward;  // Teleport up and forward when dropping the item
-            SortSlots();  // Reorganize slots to fill the empty ones
-        });
+        item.transform.SetParent(null, false);  // 'false' ensures the child retains its global transform settings when changing its parent
+        item.transform.position = transform.position + Vector3.up + Vector3.forward;  // Teleport up and forward when dropping the item
+        SortSlots();  // Reorganize slots to fill the empty ones
     }
 
     IEnumerator SendInventoryRequest(string itemId, string action)  // Coroutine to send the POST request

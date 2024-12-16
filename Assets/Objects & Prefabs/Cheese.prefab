@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 182514484299156798}
   m_Layer: 0
   m_Name: Cheese
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 1459833238718494758}
   rb: {fileID: 4868040570371673199}
   collid: {fileID: 6017282782151832081}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: 787f4496d876dea4d9c95775cdfdce8f, type: 2}

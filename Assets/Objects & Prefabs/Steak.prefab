@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6293090919121348104}
   m_Layer: 0
   m_Name: Steak
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 431675069117415684}
   rb: {fileID: 62879946359312890}
   collid: {fileID: 854293681251210509}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: 5c76f63158161874d9f2d4dab1b16ab2, type: 2}

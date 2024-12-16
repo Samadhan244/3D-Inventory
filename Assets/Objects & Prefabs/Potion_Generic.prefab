@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8543858857581751199}
   m_Layer: 0
   m_Name: Potion_Generic
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 2270613935318285146}
   rb: {fileID: 5244046756230905221}
   collid: {fileID: 1377962533229330637}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: f469dbc2cc7a0ab4e88f09d55ba7711a, type: 2}

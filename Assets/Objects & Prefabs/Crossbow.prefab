@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1800896836536891615}
   m_Layer: 0
   m_Name: Crossbow
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 6902130321155147980}
   rb: {fileID: 4917225204549941763}
   collid: {fileID: 5206316944342289857}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: b2f77ccc4b8250e4ebf0c3df6d7b8e33, type: 2}

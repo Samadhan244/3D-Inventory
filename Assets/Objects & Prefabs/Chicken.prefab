@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7487706405873780456}
   m_Layer: 0
   m_Name: Chicken
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,5 +247,4 @@ MonoBehaviour:
   audioSource: {fileID: 5683702741278791191}
   rb: {fileID: 5289357084478685087}
   collid: {fileID: 3795115428996070220}
-  animator: {fileID: 0}
   scriptableItem: {fileID: 11400000, guid: eef7ed92e7c5a8841944c25896101e42, type: 2}
