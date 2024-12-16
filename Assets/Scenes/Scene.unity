@@ -2433,6 +2433,7 @@ MonoBehaviour:
   chestOpen: {fileID: 8300000, guid: 355b1ae9303b19a428dee9467cbaf1f1, type: 3}
   chestClose: {fileID: 8300000, guid: 01cc04cba28a1db4a8f4124c39634187, type: 3}
   itemPickup: {fileID: 8300000, guid: c9e459b9590caac44b9efc554630122c, type: 3}
+  itemDrop: {fileID: 8300000, guid: df8a682def1a3e3438870a990f2060dd, type: 3}
   weightCount: 0
 --- !u!4 &1358913033
 Transform:

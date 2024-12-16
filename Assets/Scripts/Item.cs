@@ -8,11 +8,12 @@ public class Item : MonoBehaviour
     [SerializeField] Collider collid;
     public ScriptableItem scriptableItem;
     bool isInsideInventory;  // When it's inside inventory, the gravity will be disabled
-    static bool inventoryIsOnCooldown;
+    float cooldown;  // To prevent spamming adding and dropping
     static readonly int DropHash = Animator.StringToHash("Drop");
 
     void Update()
     {
+        if (cooldown > 0) cooldown -= Time.deltaTime;
         if (!isInsideInventory) rb.AddForce(Vector3.down * scriptableItem.weight, ForceMode.Acceleration);  // Item's gravity depending on its mass
     }
 
@@ -23,10 +24,8 @@ public class Item : MonoBehaviour
 
     void OnMouseDown()
     {
-        // Prevent taking or dropping items too fast
-        if (inventoryIsOnCooldown) return;
-        inventoryIsOnCooldown = true;
-        this.Wait(0.3f, () => inventoryIsOnCooldown = false);  // This is more perfromance-friendly than constant checking of cooldown += Time.deltatime; in update
+        if (cooldown > 0) return;  // Prevent spamming
+        else cooldown = 0.3f;
 
         if (!isInsideInventory)
         {
@@ -37,12 +36,15 @@ public class Item : MonoBehaviour
         }
     }
 
-
     public void Drop()
     {
+        if (cooldown > 0) return;  // Prevent spamming
+        else cooldown = 0.3f;
+
         if (isInsideInventory)  // Removing item
         {
             GetComponentInParent<Animator>().Play(DropHash);  // Do the animation first, then remove it
+            global.inventory.PlaySound(3);
             this.Wait(0.3f, () =>
             {
                 global.inventory.RemoveItem(this);

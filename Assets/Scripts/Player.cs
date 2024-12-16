@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     void MoveAndRotation()
     {
-        animator.SetBool(IsMoving, rb.velocity.magnitude > 0.1f);  // Animation only for footstep sounds
+        animator.SetBool(IsMoving, rb.velocity.magnitude > 0.3f);  // Trigger footstep sounds only for significant movement (0.3 to ignore minor impacts)
 
         if (global.isChestOpen) return;  // Can't move while inventory is open
         Vector3 moveDirection = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");

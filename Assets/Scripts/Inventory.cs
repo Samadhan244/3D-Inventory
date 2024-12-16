@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.Events;
 using UnityEngine.Networking;
+using System.Collections;
 
 public class Inventory : MonoBehaviour
 {
     GlobalReferences global => GlobalReferences.Instance;
+    UnityEvent OnItemFolded, OnItemRetrieved; // Events for folding and retrieving
     [SerializeField] Text itemCountText, weightCountText;
     [SerializeField] Transform[] slots;  // Items are saved in these empty slots
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip chestOpen, chestClose, itemPickup;
+    [SerializeField] AudioClip chestOpen, chestClose, itemPickup, itemDrop;
     bool isOnCd;
     [SerializeField] float weightCount;
     static readonly int IsOpenHash = Animator.StringToHash("IsOpen");
@@ -40,7 +42,7 @@ public class Inventory : MonoBehaviour
 
     public void PlaySound(int index)
     {
-        AudioClip[] sounds = { chestOpen, chestClose, itemPickup };
+        AudioClip[] sounds = { chestOpen, chestClose, itemPickup, itemDrop };
         audioSource.PlayOneShot(sounds[index]);
     }
 
@@ -60,7 +62,7 @@ public class Inventory : MonoBehaviour
     {
         if (global.usedSlots >= global.totalSlots) { print("Inventory is full"); return; }
 
-        StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "add"));
+        StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "retrieve"));
 
         PlaySound(2);
         global.usedSlots += 1;
@@ -82,7 +84,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "remove"));
+        StartCoroutine(SendInventoryRequest(item.scriptableItem.id.ToString(), "fold"));
 
         global.usedSlots -= 1;
         global.droppedItemsCount += 1;
@@ -113,7 +115,13 @@ public class Inventory : MonoBehaviour
         yield return request.SendWebRequest();  // Send the request and wait for a response
 
         // Check for errors
-        if (request.result == UnityWebRequest.Result.Success) Debug.Log("Request sent successfully: " + request.downloadHandler.text);
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Request sent successfully: " + request.downloadHandler.text);
+            // Trigger events based on action
+            if (action == "fold") OnItemFolded?.Invoke();
+            else if (action == "retrieve") OnItemRetrieved?.Invoke();
+        }
         else Debug.LogError("Error sending request: " + request.error);
     }
 
