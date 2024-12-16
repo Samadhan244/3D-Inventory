@@ -7,10 +7,10 @@ using System.Collections;
 public class Inventory : MonoBehaviour
 {
     GlobalReferences global => GlobalReferences.Instance;
-    UnityEvent OnItemFolded, OnItemRetrieved; // Events for folding and retrieving
+    UnityEvent OnItemFolded, OnItemRetrieved; // Events triggered when an item is folded or retrieved
     [SerializeField] Text itemCountText, weightCountText;
-    [SerializeField] Transform[] slots;  // Items are saved in these empty slots
-    [SerializeField] Image[] icons;  // These are icons which we will see when hovering over inventory
+    [SerializeField] Transform[] slots;  // Slots where items are stored
+    [SerializeField] Image[] icons;  // Icons displayed when hovering over inventory
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip chestOpen, chestClose, itemPickup, itemDrop;
@@ -25,20 +25,19 @@ public class Inventory : MonoBehaviour
         GridLayout3D();
     }
 
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) OpenOrCloseInventory();
         if (Input.GetKeyDown(KeyCode.P)) GridLayout3D();
     }
 
-    public void OpenOrCloseInventory()  // This method is called by pressing a hotkey or left-clicking the 3d inventory
+    public void OpenOrCloseInventory()  // Called when pressing a hotkey or clicking the 3D inventory
     {
-        // Opening or closing inventory has a cooldown of 1 second
+        // Opening or closing the inventory has a cooldown of 1 second
         if (isOnCd) return;
         else { isOnCd = true; this.Wait(1f, () => isOnCd = false); }
 
-        // Open if closed, close if open
+        // Toggle inventory state
         global.isChestOpen = !global.isChestOpen;
         animator.SetBool(IsOpenHash, global.isChestOpen);
     }
@@ -57,7 +56,7 @@ public class Inventory : MonoBehaviour
         {
             int row = i / columns;
             int column = i % columns;
-            slots[i].localPosition = new Vector3(column * spacing.x, row * spacing.y, 0);  // Assign the position to the slot
+            slots[i].localPosition = new Vector3(column * spacing.x, row * spacing.y, 0);  // Assign position to each slot
         }
     }
 
@@ -78,7 +77,7 @@ public class Inventory : MonoBehaviour
             if (slot.childCount == 0)
             {
                 Transform itemTransform = item.transform;
-                itemTransform.SetParent(slot, false);  // 'false' ensures the child retains its global transform settings when changing its parent
+                itemTransform.SetParent(slot, false);  // Ensure the child retains global transform settings
                 itemTransform.localPosition = Vector3.zero;
                 itemTransform.localRotation = Quaternion.Euler(270, 0, 0);
                 break;
@@ -95,19 +94,19 @@ public class Inventory : MonoBehaviour
         itemCountText.text = global.usedSlots + " / " + global.totalSlots;
         weightCountText.text = weightCount.ToString();
 
-        item.transform.SetParent(null, false);  // 'false' ensures the child retains its global transform settings when changing its parent
-        item.transform.position = transform.position + Vector3.up + Vector3.forward;  // Teleport up and forward when dropping the item
-        SortSlots();  // Reorganize slots to fill the empty ones
+        item.transform.SetParent(null, false);  // Ensure the child retains global transform settings
+        item.transform.position = transform.position + Vector3.up + Vector3.forward;  // Position the dropped item slightly above and forward
+        SortSlots();  // Reorganize slots to fill empty spaces
     }
 
-    IEnumerator SendInventoryRequest(string itemId, string action)  // Coroutine to send the POST request
+    IEnumerator SendInventoryRequest(string itemId, string action)  // Coroutine to send a POST request
     {
         string url = "https://wadahub.manerai.com/api/inventory/status";
         string authToken = "Bearer kPERnYcWAY46xaSy8CEzanosAgsWM84Nx7SKM4QBSqPq6c7StWfGxzhxPfDh8MaP";
 
-        string jsonData = "{\"item_id\":\"" + itemId + "\", \"action\":\"" + action + "\"}";  // Create the data to send in the POST request
+        string jsonData = "{\"item_id\":\"" + itemId + "\", \"action\":\"" + action + "\"}";  // JSON data for the POST request
 
-        // Create the UnityWebRequest with JSON data
+        // Create UnityWebRequest with JSON data
         UnityWebRequest request = new UnityWebRequest(url, "POST");
         byte[] jsonBytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
         request.uploadHandler = new UploadHandlerRaw(jsonBytes);
@@ -117,11 +116,11 @@ public class Inventory : MonoBehaviour
 
         yield return request.SendWebRequest();  // Send the request and wait for a response
 
-        // Check for errors
+        // Handle the response
         if (request.result == UnityWebRequest.Result.Success)
         {
             Debug.Log("Request sent successfully: " + request.downloadHandler.text);
-            // Trigger events based on action
+            // Trigger events based on the action
             if (action == "fold") OnItemFolded?.Invoke();
             else if (action == "retrieve") OnItemRetrieved?.Invoke();
         }
@@ -131,7 +130,7 @@ public class Inventory : MonoBehaviour
     void SortSlots()
     {
         for (int i = 0; i < slots.Length - 1; i++)  // Loop through all slots
-            if (slots[i].childCount == 0)  // If the current slot is empty, find the next occupied slot and move the item from the occupied slot to the empty slot
+            if (slots[i].childCount == 0)  // If the current slot is empty, find the next occupied slot
                 for (int j = i + 1; j < slots.Length; j++)
                     if (slots[j].childCount > 0)
                     {
