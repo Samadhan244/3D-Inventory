@@ -28,7 +28,6 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) OpenOrCloseInventory();
-        if (Input.GetKeyDown(KeyCode.P)) GridLayout3D();
     }
 
     public void OpenOrCloseInventory()  // Called when pressing a hotkey or clicking the 3D inventory
